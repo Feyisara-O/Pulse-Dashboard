@@ -1,43 +1,114 @@
 # Pulse — SaaS Business Dashboard
 
-A production-quality SaaS analytics dashboard built with pure HTML, CSS, and Vanilla JavaScript. No frameworks. No bloat.
-
-![Dashboard Preview](Preview.jpg)
+> A fully interactive business analytics dashboard built with vanilla HTML, CSS, and JavaScript. No frameworks. No build tools. Just clean, intentional code.
 
 **[Live Demo →](https://feyisara-o.github.io/pulse-dashboard/)**
 
 ---
 
-## Overview
+![Pulse Dashboard Preview](preview.jpg)
 
-Pulse is a business intelligence dashboard that gives founders, freelancers, and small teams a clear view of their key metrics in one place. Built as a frontend UI demonstration with simulated data and a live AI insight engine.
+---
+
+## The Problem
+
+Freelancers, small business owners, and early-stage startups typically track their business performance across spreadsheets, invoices, and disconnected tools. There's no single place that gives them a clear, real-time view of how their business is doing.
+
+The result is guesswork — decisions made without clarity.
+
+---
+
+## The Solution
+
+Pulse is a business intelligence dashboard that consolidates the metrics that matter most into one clean interface. Revenue, client count, pending invoices, overdue payments — all visible at a glance, with an AI layer that turns those numbers into a single actionable insight.
+
+---
+
+## Screenshots
+
+| Dashboard — Dark Mode | Dashboard — Light Mode |
+|---|---|
+| ![Dark mode](screenshot-dark.png) | ![Light mode](screenshot-light.png) |
+
+| Analytics Page | Clients Page |
+|---|---|
+| ![Analytics](screenshot-analytics.png) | ![Clients](screenshot-clients.png) |
+
+| Invoices Page | Add Transaction Modal |
+|---|---|
+| ![Invoices](screenshot-invoices.png) | ![Modal](screenshot-modal.png) |
 
 ---
 
 ## Features
 
-- **4 KPI Metric Cards** — Revenue, Active Clients, Orders, and Expenses with animated counters and period-over-period change indicators.
-- **Revenue Overview Chart** — Line chart comparing revenue vs expenses across the selected time period
-- **Revenue Split Chart** — Doughnut chart breaking down income by category
-- **AI Business Pulse** — Powered by the Claude API. Reads live dashboard metrics and generates a single actionable business insight
-- **Monthly Goal Tracker** — Animated progress bar showing progress toward a revenue target
-- **Transactions Table** — Recent client payments with Paid, Pending, and Overdue status badges
-- **CSV Export** — Download transaction data as a spreadsheet with one click
-- **Date Range Filter** — Switch between Last 7, 30, and 90 day views. All metrics and charts update instantly
-- **Dark / Light Mode** — Full theme switching persisted in localStorage
-- **Fully Responsive** — Mobile-first design. Works on all screen sizes
+### Core Dashboard
+- **4 live KPI cards** — Total Revenue, Active Clients, Total Orders, and Pending Amount — all calculated in real time from your transaction data
+- **Revenue Overview chart** — Line chart comparing paid vs pending transactions grouped by month
+- **Revenue Split chart** — Doughnut chart showing the breakdown of paid, pending, and overdue amounts
+- **Monthly Goal tracker** — Animated progress bar tracking revenue against a user-defined target
+- **Notification badge** — Automatically counts overdue transactions and surfaces them in the topbar
+
+### Transactions
+- **Add transactions** via a modal form — client name, project, amount, date, and status
+- **Delete transactions** with a single click
+- **Filter by status** — All, Paid, Pending, Overdue
+- **Live search** — filters the table by client name or project as you type
+- **Export to CSV** — download all transaction data as a spreadsheet
+- **localStorage persistence** — data survives page refreshes and browser restarts
+
+### AI Business Pulse
+- Powered by the Claude API
+- Reads live dashboard metrics — revenue, overdue clients, pending totals, goal progress
+- Generates one concise, actionable business insight on load and on demand
+- Typewriter animation for a polished feel
+- Graceful fallback if the API is unavailable
+
+### Analytics Page
+- Bar chart of paid revenue grouped by month
+- Top 5 clients ranked by total revenue with animated progress bars
+- Payment health breakdown — paid, pending, and overdue totals with transaction counts
+
+### Clients Page
+- Auto-generated from transaction data — no manual entry needed
+- Each client card shows total paid, total pending, project count, and transaction count
+- Sorted by highest revenue client first
+
+### Invoices Page
+- Full transaction list with client, project, date, amount, and status
+- **Mark as Paid** — update overdue or pending invoices with one click, instantly reflecting across the dashboard
+
+### Settings Page
+- Edit the monthly revenue goal target
+- Toggle dark/light theme (synced with the sidebar toggle)
+- Clear all transaction data with a confirmation prompt
 
 ---
 
 ## Tech Stack
 
-| Technology | Purpose |
-|------------|---------|
+| Technology | Role |
+|---|---|
 | HTML5 | Semantic page structure |
 | CSS3 | Mobile-first layout, theming, animations |
-| Vanilla JavaScript | Interactivity, data rendering, API integration |
-| Chart.js | Line and doughnut charts |
+| Vanilla JavaScript | All interactivity, data logic, API calls |
+| Chart.js | Line, bar, and doughnut charts |
 | Claude API | AI-powered business insights |
+| localStorage | Client-side data persistence |
+
+---
+
+## Design Decisions
+
+**No framework.** This project didn't need one. Vanilla JS keeps the codebase lean, fast, and genuinely readable. It also demonstrates solid fundamentals — a much stronger signal than spinning up a Create React App boilerplate.
+
+**Mobile-first CSS.** Base styles are written for mobile. Complexity is added progressively with `min-width` media queries. This is the industry standard approach, not the exception.
+
+**Data computed from transactions.** Every metric on the dashboard — revenue, client count, orders, pending amount — is calculated directly from the transaction array. There's no separate hardcoded data layer. Add a transaction and the entire dashboard updates.
+
+**CDN dependencies.** Chart.js and Google Fonts load from CDN. Both are globally cached, production-grade, and faster than self-hosting for a project of this type.
+
+**localStorage over a backend.** This is a frontend demonstration. In a production product, the transaction data would come from a backend API connected to a real database. localStorage provides a realistic "it works" experience without the overhead of a server.
 
 ---
 
@@ -45,18 +116,18 @@ Pulse is a business intelligence dashboard that gives founders, freelancers, and
 
 ```
 pulse-dashboard/
-├── index.html
+├── index.html        — Full page structure, all pages, modal
 ├── css/
-│   └── style.css
+│   └── style.css     — Mobile-first styles, theming, animations
 └── js/
-    └── app.js
+    └── app.js        — Data logic, rendering, API integration
 ```
 
 ---
 
 ## Running Locally
 
-No build tools or dependencies required.
+No installation required.
 
 ```bash
 git clone https://github.com/your-username/pulse-dashboard.git
@@ -64,23 +135,22 @@ cd pulse-dashboard
 open index.html
 ```
 
-Or simply open `index.html` in any browser.
+Or simply open `index.html` directly in any browser.
 
 ---
 
-## Design Decisions
+## What I Learned
 
-**No framework** — Vanilla JS was the right choice for a project of this scope. It keeps the bundle lean, demonstrates core fundamentals, and produces code that is straightforward to read and maintain.
-
-**Mobile-first CSS** — Base styles are written for mobile and scaled up with `min-width` media queries. This is the correct approach for modern web development where the majority of traffic is on mobile devices.
-
-**CDN dependencies** — Chart.js and Google Fonts are loaded from CDN. Both are globally cached, production-grade, and faster than self-hosting for a project of this type.
-
-**Simulated data** — The dashboard uses a hardcoded data layer. In a production product this would be replaced with API calls to a backend database.
+- How to architect a multi-page single-file application without a router library
+- How to compute derived state — building metrics from a single source of truth rather than maintaining separate data
+- How to integrate a real AI API and handle loading states, errors, and fallbacks gracefully
+- How to write mobile-first CSS that actually works across all device sizes
+- How to use localStorage as a lightweight persistence layer for a frontend-only application
 
 ---
 
 ## Author
 
 **Feyisara O.** — Frontend Developer
-[Portfolio](https://your-portfolio-url.com) · [LinkedIn](https://www.linkedin.com/in/mofeyisara-okunola-73121b277?trk=contact-info) · [Upwork](https://upwork.com/your-profile)
+
+[Portfolio](https://your-portfolio-url.com) · [LinkedIn](https://linkedin.com/in/your-profile) · [Upwork](https://upwork.com/your-profile)
